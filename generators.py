@@ -55,10 +55,10 @@ def simulate_cauchy_coloured_noise(
     """
         Simulates a Cauchy coloured noise with some input autocorrelation of the Gaussian process `autocorrelation_function`
     """
-    positive_gaussian_rvs = np.abs(np.random.normal(size=size))
-    X=ffm(autocorrelation_function, size)
-    Y=ffm_iterative(autocorrelation_function, positive_gaussian_rvs)
-    return X/Y
+    positive_gaussian_rvs=np.abs(np.random.normal(size=size))
+    gaussian_noise=ffm(autocorrelation_function, size)
+    positive_gaussian_noise=ffm_iterative(autocorrelation_function, positive_gaussian_rvs)
+    return gaussian_noise/positive_gaussian_noise
 
 
 if __name__=="__main__":
@@ -66,13 +66,13 @@ if __name__=="__main__":
 
     def acf(tau: float) -> float: 
         half_life=64
-        decay_constant = np.log(2) * half_life**-2
+        decay_constant=np.log(2)*half_life**-2
         return np.exp(-decay_constant*tau**2)
     
     size=2**20
     positive_gaussian_rvs = np.abs(np.random.normal(size=size))
     X=ffm(acf, size)
-    Y=ffm_iterative(acf,positive_gaussian_rvs)
+    Y=ffm_iterative(acf, positive_gaussian_rvs)
     Z=simulate_cauchy_coloured_noise(acf, size)
 
 

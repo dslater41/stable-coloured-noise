@@ -1,4 +1,4 @@
-from typing import List, Callable
+from typing import Callable
 import numpy as np
 from scipy.fft import fft, ifft 
 
@@ -29,8 +29,7 @@ def ffm(
 
 def ffm_iterative(
     autocorrelation_function: Callable, 
-    # size: int, 
-    target_rvs: List, 
+    target_rvs: np.ndarray, 
     iterations: int=10, 
 ) -> np.ndarray:
     """
